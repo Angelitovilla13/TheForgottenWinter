@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://drabm26vcdeqw"]
+
+[ext_resource type="Texture2D" uid="uid://ortjjvmddeai" path="res://assets/Backgrounds/salanoche.jpeg" id="1_0sm88"]
+[ext_resource type="Script" uid="uid://e6ec4d350083" path="res://escenas/sala.gd" id="1_5oesj"]
+[ext_resource type="PackedScene" uid="uid://d1x4m5r3nx4dr" path="res://escenas/Jugador.tscn" id="2_3mb2o"]
+[ext_resource type="Texture2D" uid="uid://uovolvpyfesv" path="res://assets/luz_radial.tres" id="3_r1177"]
+[ext_resource type="Script" uid="uid://bg4isdfl4s5nd" path="res://scripts/puerta_pasillo.gd" id="4_y30om"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4kxuq"]
+size = Vector2(40, 110)
+
+[node name="Sala" type="Node2D" unique_id=2053501168]
+y_sort_enabled = true
+script = ExtResource("1_5oesj")
+
+[node name="Fondo" type="Sprite2D" parent="." unique_id=236576071]
+z_index = -1
+position = Vector2(577, 325.24994)
+scale = Vector2(1.125, 1.1304728)
+texture = ExtResource("1_0sm88")
+
+[node name="Limites" type="StaticBody2D" parent="." unique_id=1360074869]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Limites" unique_id=1014421575]
+visible = false
+polygon = PackedVector2Array(13, 603, 138, 565, 125, 545, 322, 488, 474, 517, 650, 437, 812, 444, 843, 426, 962, 436, 1033, 455, 1055, 459, 1107, 515, 1122, 529, 1067, 554, 1123, 644, 1142, 644, 1148, 15, 10, 10)
+
+[node name="Jugador" parent="." unique_id=1888189776 instance=ExtResource("2_3mb2o")]
+y_sort_enabled = true
+position = Vector2(202, 446)
+scale = Vector2(0.6, 0.6)
+
+[node name="ModulacionNoche" type="CanvasModulate" parent="." unique_id=237534501]
+color = Color(0.48, 0.48, 0.62, 1)
+
+[node name="LuzLampara" type="PointLight2D" parent="." unique_id=736794064]
+position = Vector2(983, 255)
+color = Color(1, 0.81960785, 0.45882353, 1)
+energy = 1.3
+texture = ExtResource("3_r1177")
+texture_scale = 6.84
+
+[node name="LuzLuna" type="PointLight2D" parent="." unique_id=1818685067]
+position = Vector2(230, 151)
+color = Color(0.84705883, 0.9098039, 1, 1)
+energy = 1.3
+texture = ExtResource("3_r1177")
+texture_scale = 3.0
+
+[node name="LuzLuna" type="PointLight2D" parent="LuzLuna" unique_id=663566863]
+position = Vector2(207, 58)
+color = Color(0.84705883, 0.9098039, 1, 1)
+energy = 1.3
+texture = ExtResource("3_r1177")
+texture_scale = 3.0
+
+[node name="PuertaPasillo" type="Area2D" parent="." unique_id=1014238126]
+position = Vector2(621, -73)
+priority = 1
+script = ExtResource("4_y30om")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PuertaPasillo" unique_id=556711332]
+position = Vector2(447, 502)
+shape = SubResource("RectangleShape2D_4kxuq")
+
+[connection signal="body_entered" from="PuertaPasillo" to="PuertaPasillo" method="_on_body_entered"]

@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://dt3qxmhe6upkl"]
+
+[ext_resource type="Script" uid="uid://qqdshiwe7bye" path="res://scripts/cinematica.gd" id="1_x2xlx"]
+[ext_resource type="Texture2D" uid="uid://lt88uy7x0rsg" path="res://Cinematica1-1.png" id="2_51ius"]
+[ext_resource type="Texture2D" uid="uid://bw0tj4uxtotnw" path="res://Cinematica2-1.png" id="3_4k2xo"]
+[ext_resource type="Texture2D" uid="uid://bp73lvju1nk6i" path="res://Cinematica3-1.png" id="4_jgrgt"]
+[ext_resource type="Texture2D" uid="uid://c31opkltj6e4j" path="res://Cinematica4-1.png" id="5_0cwor"]
+[ext_resource type="Texture2D" uid="uid://ujhfef1r5c0j" path="res://Cinematica5-1.png" id="6_26sld"]
+[ext_resource type="Texture2D" uid="uid://dr8vrws00y4kx" path="res://Cinematica6-1.png" id="7_6o75u"]
+[ext_resource type="Texture2D" uid="uid://d0hafyaft3wee" path="res://Cinematica7-1.png" id="8_23nm4"]
+[ext_resource type="Texture2D" uid="uid://b4frpnu4u3p8d" path="res://Cinematica8-1.png" id="9_w475e"]
+[ext_resource type="AudioStream" uid="uid://rnn0hg0u5adr" path="res://assets/efectosonido.ogg" id="10_4k2xo"]
+[ext_resource type="Texture2D" uid="uid://c453d3vdvjsp1" path="res://assets/despertando1.png" id="10_26sld"]
+[ext_resource type="Texture2D" uid="uid://qdei8em50xby" path="res://assets/despertando2.png" id="11_6o75u"]
+[ext_resource type="Texture2D" uid="uid://8yu4buvkyxns" path="res://assets/despertando3.png" id="12_23nm4"]
+
+[node name="Cinematica" type="Control" unique_id=1887249406]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_x2xlx")
+imagenes = Array[Texture2D]([ExtResource("2_51ius"), ExtResource("3_4k2xo"), ExtResource("4_jgrgt"), ExtResource("5_0cwor"), ExtResource("6_26sld"), ExtResource("7_6o75u"), ExtResource("8_23nm4"), ExtResource("9_w475e"), ExtResource("10_26sld"), ExtResource("11_6o75u"), ExtResource("12_23nm4")])
+tiempos = Array[float]([3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 1.5, 4.0, 5.0, 5.0])
+textos = Array[String](["", "", "", "", "", "", "", "", "[Despierta agitada]", "Sherlyn: (...¿Qué fue eso? Qué extraño sueño...)", "Sherlyn: (Pff, otra vez me quedé dormida en el sofá...)"])
+
+[node name="Timer" type="Timer" parent="." unique_id=1512891133]
+wait_time = 3.0
+autostart = true
+
+[node name="Pantalla" type="TextureRect" parent="." unique_id=677663380]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=153756937]
+stream = ExtResource("10_4k2xo")
+autoplay = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

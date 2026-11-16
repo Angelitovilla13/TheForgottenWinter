@@ -1,0 +1,215 @@
+[gd_scene format=3 uid="uid://b6kptx8y7m1no"]
+
+[ext_resource type="Script" uid="uid://dktk0t2tpjryh" path="res://escenas/cuarto_prota.gd" id="1_51hdr"]
+[ext_resource type="Texture2D" uid="uid://b7ob7hm4kye3f" path="res://assets/Backgrounds/cuartoprota.jpeg" id="2_fondo"]
+[ext_resource type="PackedScene" uid="uid://d1x4m5r3nx4dr" path="res://escenas/Jugador.tscn" id="3_jugador"]
+[ext_resource type="Texture2D" uid="uid://uovolvpyfesv" path="res://assets/luz_radial.tres" id="4_luz"]
+[ext_resource type="Script" uid="uid://di8r3n4odjdf4" path="res://scripts/puerta_interactiva.gd" id="5_puerta_interactiva"]
+[ext_resource type="Texture2D" uid="uid://c7uvgdcx42nvi" path="res://assets/notasher.webp" id="6_hmgdp"]
+[ext_resource type="Texture2D" uid="uid://brrfpp4t436c0" path="res://assets/sobre.png" id="7_f7e3b"]
+[ext_resource type="AudioStream" uid="uid://c8uvs1jx1assm" path="res://assets/sonidos/nievesonido.mp3" id="8_m605i"]
+[ext_resource type="AudioStream" uid="uid://cxwecc2d70bgb" path="res://assets/sonidos/maullido.mp3" id="9_m605i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_puerta_izq"]
+size = Vector2(90, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4kxuq"]
+size = Vector2(112, 565)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4kxuq"]
+radius = 21.023796
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hmgdp"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(0.47, 1, 1)
+emission_shape = 3
+emission_box_extents = Vector3(150, 77.755, 1)
+gravity = Vector3(0, 35, 0)
+scale_max = 2.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m605i"]
+size = Vector2(75, 84)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_75ny5"]
+size = Vector2(100, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ybjj"]
+size = Vector2(89.48486, 28.824768)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7d3k6"]
+size = Vector2(120, 80)
+
+[node name="CuartoProta" type="Node2D" unique_id=1695643231]
+y_sort_enabled = true
+script = ExtResource("1_51hdr")
+
+[node name="Fondo" type="Sprite2D" parent="." unique_id=381757228]
+z_index = -1
+position = Vector2(577, 325.25)
+scale = Vector2(1.125, 1.1304728)
+texture = ExtResource("2_fondo")
+
+[node name="Limites" type="StaticBody2D" parent="." unique_id=944941010]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Limites" unique_id=1895858512]
+visible = false
+polygon = PackedVector2Array(10, 640, 14, 632, 140, 558, 190, 554, 338, 466, 576, 472, 737, 471, 806, 568, 1061, 564, 1149, 633, 1148, 15, 10, 10)
+
+[node name="Jugador" parent="." unique_id=864700423 instance=ExtResource("3_jugador")]
+y_sort_enabled = true
+position = Vector2(550, 434)
+scale = Vector2(0.6, 0.6)
+
+[node name="PuertaPasillo" type="Area2D" parent="." unique_id=993935653]
+position = Vector2(63, 490)
+script = ExtResource("5_puerta_interactiva")
+escena_destino = "res://escenas/pasillo.tscn"
+punto_spawn_destino = "desde_cuartoprota"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PuertaPasillo" unique_id=508544224]
+position = Vector2(36, 90)
+shape = SubResource("RectangleShape2D_puerta_izq")
+
+[node name="Contorno" type="Node2D" parent="PuertaPasillo" unique_id=1247904554]
+
+[node name="Marco" type="Line2D" parent="PuertaPasillo/Contorno" unique_id=623976316]
+position = Vector2(2.3072052, 1.7975159)
+scale = Vector2(1.0381356, 0.9837329)
+points = PackedVector2Array(-52.31224, 131.33899, -60.98163, -481.6323, 52.683662, -432.83856, 50.757133, 80.51221, -52.31224, 132.35553)
+width = 0.5
+default_color = Color(0.9, 0.9, 0.95, 0.85)
+
+[node name="ModulacionNoche" type="CanvasModulate" parent="." unique_id=15456150]
+color = Color(0.48, 0.48, 0.62, 1)
+
+[node name="LuzLamparaEscritorio" type="PointLight2D" parent="." unique_id=2134729737]
+position = Vector2(410, 420)
+color = Color(1, 0.88, 0.55, 1)
+energy = 1.4
+texture = ExtResource("4_luz")
+texture_scale = 2.15
+metadata/_edit_lock_ = true
+
+[node name="LuzVentana" type="PointLight2D" parent="." unique_id=1950279934]
+position = Vector2(685, 247)
+color = Color(0.85, 0.91, 1, 1)
+energy = 1.67
+texture = ExtResource("4_luz")
+texture_scale = 5.35
+metadata/_edit_lock_ = true
+
+[node name="LuzLamparaNoche" type="PointLight2D" parent="." unique_id=1976118046]
+position = Vector2(1090, 520)
+color = Color(1, 0.82, 0.45, 1)
+energy = 1.2
+texture = ExtResource("4_luz")
+texture_scale = 3.0
+metadata/_edit_lock_ = true
+
+[node name="TriggerEntrada" type="Area2D" parent="." unique_id=395975631]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TriggerEntrada" unique_id=528489542]
+position = Vector2(67, 336)
+shape = SubResource("RectangleShape2D_4kxuq")
+metadata/_edit_lock_ = true
+
+[node name="NotaCama" type="Area2D" parent="." unique_id=510105617]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NotaCama" unique_id=1456070433]
+position = Vector2(724, 568)
+shape = SubResource("CircleShape2D_4kxuq")
+
+[node name="Nieve" type="GPUParticles2D" parent="." unique_id=1769743606]
+position = Vector2(694, 207)
+emitting = false
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_hmgdp")
+
+[node name="UINota" type="CanvasLayer" parent="." unique_id=1730751105]
+layer = 10
+visible = false
+
+[node name="TextureRect" type="TextureRect" parent="UINota" unique_id=448767650]
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("6_hmgdp")
+
+[node name="CartaCama" type="Sprite2D" parent="." unique_id=1615671747]
+modulate = Color(0.690313, 0.690313, 0.690313, 1)
+self_modulate = Color(0.88, 0.88, 0.88, 1)
+z_index = -1
+position = Vector2(857.6985, 406.85785)
+rotation = -0.38920844
+scale = Vector2(0.05990127, 0.0564906)
+skew = -0.8517207
+texture = ExtResource("7_f7e3b")
+
+[node name="Contorno" type="Node2D" parent="CartaCama" unique_id=483587183]
+visible = false
+
+[node name="Marco" type="Line2D" parent="CartaCama/Contorno" unique_id=726850014]
+points = PackedVector2Array(-250, -160, 250, -160, 250, 160, -250, 160)
+closed = true
+width = 20.0
+default_color = Color(0.95, 0.95, 1, 0.85)
+
+[node name="AreaCarta" type="Area2D" parent="." unique_id=1584263643]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaCarta" unique_id=915563919]
+position = Vector2(806.5, 560)
+shape = SubResource("RectangleShape2D_m605i")
+
+[node name="AudioNieve" type="AudioStreamPlayer" parent="." unique_id=114958654]
+stream = ExtResource("8_m605i")
+
+[node name="AudioGato" type="AudioStreamPlayer" parent="." unique_id=1311527318]
+stream = ExtResource("9_m605i")
+
+[node name="AreaGato" type="Area2D" parent="." unique_id=375704365]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaGato" unique_id=1125764396]
+position = Vector2(645, 495)
+shape = SubResource("RectangleShape2D_75ny5")
+
+[node name="Contorno" type="Node2D" parent="AreaGato" unique_id=1821075708]
+visible = false
+
+[node name="Marco" type="Line2D" parent="AreaGato/Contorno" unique_id=1634597406]
+position = Vector2(11, -2)
+points = PackedVector2Array(689, 326, 688, 315, 690, 305, 695, 309, 701, 305, 705, 310, 720, 309, 731, 315, 730, 326)
+closed = true
+width = 1.2
+default_color = Color(0.95, 0.95, 1, 0.85)
+
+[node name="AreaCama" type="Area2D" parent="." unique_id=1271602516]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaCama" unique_id=1487341004]
+position = Vector2(746, 500)
+rotation = 0.83252203
+shape = SubResource("RectangleShape2D_0ybjj")
+
+[node name="Contorno" type="Node2D" parent="AreaCama" unique_id=278762279]
+
+[node name="Marco" type="Line2D" parent="AreaCama/Contorno" unique_id=20143962]
+points = PackedVector2Array(781, 321, 798, 307, 839, 303, 883, 302, 979, 309, 981, 306, 992, 306, 991, 322, 1011, 326, 1040, 324, 1027, 379, 1142, 428, 1065, 442, 1065, 555, 967, 555, 820, 556, 821, 576, 808, 579, 770, 515, 746, 479, 745, 461, 740, 469, 729, 458, 730, 441, 739, 429, 739, 421, 751, 395, 751, 379, 777, 377, 777, 346)
+closed = true
+width = 1.5
+default_color = Color(0.95, 0.95, 1, 0.85)
+
+[node name="AreaLibro" type="Area2D" parent="." unique_id=561715460]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaLibro" unique_id=448575366]
+position = Vector2(430, 500)
+shape = SubResource("RectangleShape2D_7d3k6")
+
+[node name="Contorno" type="Node2D" parent="AreaLibro" unique_id=225022313]
+visible = false
+
+[node name="Marco" type="Line2D" parent="AreaLibro/Contorno" unique_id=321383211]
+points = PackedVector2Array(421, 338, 436, 332, 445, 332, 453, 335, 460, 332, 467, 332, 483, 336, 483, 339, 459, 343, 448, 342, 434, 344)
+closed = true
+width = 1.2
+default_color = Color(0.95, 0.95, 1, 0.85)
+
+[connection signal="body_entered" from="PuertaPasillo" to="PuertaPasillo" method="_on_body_entered"]
+[connection signal="body_exited" from="PuertaPasillo" to="PuertaPasillo" method="_on_body_exited"]

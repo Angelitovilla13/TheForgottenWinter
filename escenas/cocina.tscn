@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://b23cxv18mko7q"]
+
+[ext_resource type="Script" uid="uid://cybrydg02sgd5" path="res://scripts/cocina.gd" id="1_cocina"]
+[ext_resource type="Texture2D" uid="uid://cfkywe3oyffnx" path="res://assets/Backgrounds/cocinanoche.jpeg" id="2_fondo"]
+[ext_resource type="PackedScene" uid="uid://d1x4m5r3nx4dr" path="res://escenas/Jugador.tscn" id="3_jugador"]
+[ext_resource type="Script" uid="uid://dplpaxlx1musf" path="res://scripts/puerta_sala.gd" id="4_puerta_sala"]
+[ext_resource type="Texture2D" uid="uid://uovolvpyfesv" path="res://assets/luz_radial.tres" id="5_luz"]
+[ext_resource type="Script" uid="uid://ds1vwrwyopyhq" path="res://scripts/puerta_cocina_a_pasillo.gd" id="6_puerta_pasillo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_puerta_izq"]
+size = Vector2(40, 130)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_puerta_der"]
+size = Vector2(40, 130)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4kxuq"]
+size = Vector2(44, 410.5)
+
+[node name="Cocina" type="Node2D" unique_id=896097182]
+y_sort_enabled = true
+script = ExtResource("1_cocina")
+
+[node name="Fondo" type="Sprite2D" parent="." unique_id=1142037847]
+z_index = -1
+position = Vector2(577, 325.25)
+scale = Vector2(1.125, 1.1304728)
+texture = ExtResource("2_fondo")
+
+[node name="Limites" type="StaticBody2D" parent="." unique_id=1825349388]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Limites" unique_id=1006316109]
+visible = false
+polygon = PackedVector2Array(10, 640, 10, 480, 175, 480, 185, 465, 520, 465, 750, 465, 980, 465, 990, 470, 1140, 470, 1148, 15, 10, 10)
+
+[node name="Jugador" parent="." unique_id=1501002484 instance=ExtResource("3_jugador")]
+y_sort_enabled = true
+position = Vector2(91, 476)
+scale = Vector2(0.6, 0.6)
+
+[node name="PuertaSala" type="Area2D" parent="." unique_id=1559424865]
+position = Vector2(25, 560)
+script = ExtResource("4_puerta_sala")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PuertaSala" unique_id=1812082475]
+shape = SubResource("RectangleShape2D_puerta_izq")
+
+[node name="PuertaPasillo" type="Area2D" parent="." unique_id=368905818]
+position = Vector2(1135, 470)
+script = ExtResource("6_puerta_pasillo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PuertaPasillo" unique_id=200888166]
+shape = SubResource("RectangleShape2D_puerta_der")
+
+[node name="ModulacionNoche" type="CanvasModulate" parent="." unique_id=739066256]
+color = Color(0.48, 0.48, 0.62, 1)
+
+[node name="LuzLamparaTecho" type="PointLight2D" parent="." unique_id=1738023401]
+position = Vector2(554, 88)
+color = Color(1, 0.85, 0.55, 1)
+energy = 1.3
+texture = ExtResource("5_luz")
+texture_scale = 7.05
+metadata/_edit_lock_ = true
+
+[node name="LuzVela" type="PointLight2D" parent="." unique_id=1115033594]
+position = Vector2(467.8, 371.7)
+scale = Vector2(1.03385, 1.27474)
+color = Color(1, 0.75, 0.4, 1)
+energy = 1.1
+texture = ExtResource("5_luz")
+texture_scale = 1.8
+
+[node name="LuzVentana" type="PointLight2D" parent="." unique_id=2059337230]
+position = Vector2(321, 217)
+scale = Vector2(0.95061, 0.87305)
+color = Color(0.85, 0.91, 1, 1)
+energy = 1.2
+texture = ExtResource("5_luz")
+texture_scale = 3.5
+metadata/_edit_lock_ = true
+
+[node name="TriggerPensamiento" type="Area2D" parent="." unique_id=1035580342]
+position = Vector2(638, 465)
+priority = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TriggerPensamiento" unique_id=902370672]
+position = Vector2(-114, 15.75)
+shape = SubResource("RectangleShape2D_4kxuq")
+
+[connection signal="body_entered" from="PuertaSala" to="PuertaSala" method="_on_body_entered"]
+[connection signal="body_entered" from="PuertaPasillo" to="PuertaPasillo" method="_on_body_entered"]
+[connection signal="body_entered" from="TriggerPensamiento" to="." method="_on_trigger_pensamiento_body_entered"]

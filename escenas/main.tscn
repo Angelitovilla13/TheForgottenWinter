@@ -1,0 +1,117 @@
+[gd_scene format=3 uid="uid://dr1b8ilkq7oq1"]
+
+[ext_resource type="Script" uid="uid://dw5vs8l2blwbe" path="res://scripts/main.gd" id="1_68mvh"]
+[ext_resource type="VideoStream" uid="uid://d02po3i10hfc7" path="res://assets/menu.ogv" id="1_d7u15"]
+[ext_resource type="Script" uid="uid://bbkb2180pkjme" path="res://scripts/menu_buttons.gd" id="2_menu"]
+[ext_resource type="Texture2D" uid="uid://mdgtm57shrtw" path="res://assets/ui/cursor.png" id="3_cur"]
+[ext_resource type="Texture2D" uid="uid://c76x5vgbcqjns" path="res://assets/ui/continuar.png" id="4_cont"]
+[ext_resource type="Texture2D" uid="uid://b6va1kqgh6f7j" path="res://assets/ui/nueva_partida.png" id="5_new"]
+[ext_resource type="Texture2D" uid="uid://cdq8c2kwt43rh" path="res://assets/ui/ajustes.png" id="6_opt"]
+[ext_resource type="Texture2D" uid="uid://clx3qiuinrxuh" path="res://assets/ui/salir.png" id="7_exit"]
+[ext_resource type="AudioStream" uid="uid://d2oamg8hudkfy" path="res://assets/Six Forty Seven - Instupendo.ogg" id="9_lyxkq"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4kxuq"]
+
+[node name="Node2D" type="Control" unique_id=592075600]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_68mvh")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=1551732334]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("1_d7u15")
+speed_scale = 2.0
+autoplay = true
+expand = true
+loop = true
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="." unique_id=1225114216]
+visible = false
+mesh = SubResource("CapsuleMesh_4kxuq")
+
+[node name="Nieve" type="CPUParticles2D" parent="." unique_id=553556214]
+position = Vector2(578, 7)
+amount = 150
+lifetime = 5.0
+speed_scale = 0.3
+randomness = 0.7
+fixed_fps = 16
+emission_shape = 3
+emission_rect_extents = Vector2(600, 1)
+gravity = Vector2(0, 30)
+scale_amount_min = 0.0
+scale_amount_max = 3.0
+color = Color(1, 0.93, 0.9, 0.42745098)
+
+[node name="MenuPrincipal" type="Control" parent="." unique_id=298809141]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = 70.0
+offset_right = 140.0
+offset_bottom = 280.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_menu")
+
+[node name="Cursor" type="TextureRect" parent="MenuPrincipal" unique_id=1477402704]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 2.0
+offset_right = 38.0
+offset_bottom = 36.0
+texture = ExtResource("3_cur")
+stretch_mode = 3
+
+[node name="ButtonsContainer" type="VBoxContainer" parent="MenuPrincipal" unique_id=1829759734]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 38.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="BtnContinuar" type="TextureButton" parent="MenuPrincipal/ButtonsContainer" unique_id=835270171]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("4_cont")
+
+[node name="BtnNuevaPartida" type="TextureButton" parent="MenuPrincipal/ButtonsContainer" unique_id=555832709]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("5_new")
+
+[node name="BtnAjustes" type="TextureButton" parent="MenuPrincipal/ButtonsContainer" unique_id=219974976]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("6_opt")
+
+[node name="BtnSalir" type="TextureButton" parent="MenuPrincipal/ButtonsContainer" unique_id=475018232]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("7_exit")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1589101785]
+stream = ExtResource("9_lyxkq")
+autoplay = true
+
+[connection signal="pressed" from="MenuPrincipal/ButtonsContainer/BtnNuevaPartida" to="." method="_on_btn_nueva_partida_pressed"]

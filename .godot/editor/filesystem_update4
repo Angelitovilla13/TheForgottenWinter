@@ -1,0 +1,5 @@
+res://escenas/CuartoProta.tscn
+res://assets/luz_radial.tres
+res://escenas/cuarto_prota.gd
+res://escenas/Jugador.tscn
+res://scripts/jugador.gd

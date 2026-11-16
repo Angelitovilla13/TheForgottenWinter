@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://dqhor1rx87eix"]
+
+[ext_resource type="Script" uid="uid://chbtfn3no7ed1" path="res://escenas/caja_dialogo.gd" id="1_vdprn"]
+
+[node name="CajaDialogo" type="CanvasLayer" unique_id=892740993]
+layer = 100
+script = ExtResource("1_vdprn")
+
+[node name="Panel" type="Panel" parent="." unique_id=1515136574]
+offset_left = 56.0
+offset_top = 556.0
+offset_right = 1083.0
+offset_bottom = 621.0
+
+[node name="Texto" type="RichTextLabel" parent="Panel" unique_id=1154286550]
+layout_mode = 0
+offset_right = 1028.0
+offset_bottom = 61.0
+text = "sapotoro"
+
+[node name="TimerLetras" type="Timer" parent="." unique_id=1407899636]
+wait_time = 0.05

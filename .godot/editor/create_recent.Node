@@ -1,0 +1,14 @@
+CollisionShape2D
+Area2D
+Timer
+RichTextLabel
+Panel
+CanvasLayer
+TextureRect
+CanvasModulate
+GPUParticles2D
+CollisionPolygon2D
+StaticBody2D
+Sprite2D
+AnimatedSprite2D
+CharacterBody2D

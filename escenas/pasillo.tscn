@@ -1,0 +1,145 @@
+[gd_scene format=3 uid="uid://cm3q7t8vwn2kp"]
+
+[ext_resource type="Script" uid="uid://bo6pa6dfp2dbx" path="res://scripts/pasillo.gd" id="1_pasillo"]
+[ext_resource type="Texture2D" uid="uid://grv6cl5i4kec" path="res://assets/Backgrounds/pasillonoche.jpeg" id="2_fondo"]
+[ext_resource type="PackedScene" uid="uid://d1x4m5r3nx4dr" path="res://escenas/Jugador.tscn" id="3_jugador"]
+[ext_resource type="Script" uid="uid://bo0nu37ck1uho" path="res://scripts/puerta_pasillo_a_cocina.gd" id="4_puerta"]
+[ext_resource type="Texture2D" uid="uid://uovolvpyfesv" path="res://assets/luz_radial.tres" id="5_luz"]
+[ext_resource type="Script" uid="uid://di8r3n4odjdf4" path="res://scripts/puerta_interactiva.gd" id="6_puerta_interactiva"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_baranda"]
+size = Vector2(17.138077, 180)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_escaleras"]
+size = Vector2(153, 70)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_puerta_cuarto"]
+size = Vector2(95, 23)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x4nws"]
+size = Vector2(150, 90)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1p0l0"]
+size = Vector2(100, 75)
+
+[node name="Pasillo" type="Node2D" unique_id=1659636504]
+y_sort_enabled = true
+script = ExtResource("1_pasillo")
+
+[node name="Fondo" type="Sprite2D" parent="." unique_id=825204507]
+z_index = -1
+position = Vector2(577, 325.25)
+scale = Vector2(1.125, 1.1304728)
+texture = ExtResource("2_fondo")
+
+[node name="Limites" type="StaticBody2D" parent="." unique_id=150888705]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Limites" unique_id=546640242]
+visible = false
+polygon = PackedVector2Array(10, 640, 95, 643, 190, 530, 190, 430, 240, 351, 282.06903, 353.75787, 306, 330, 540, 329, 1133, 617, 1148, 15, 10, 10)
+
+[node name="Baranda" type="CollisionShape2D" parent="Limites" unique_id=21859155]
+visible = false
+position = Vector2(459, 432)
+rotation = -0.64751714
+shape = SubResource("RectangleShape2D_baranda")
+
+[node name="Baranda" type="CollisionShape2D" parent="Limites/Baranda" unique_id=1137060060]
+visible = false
+position = Vector2(-67.842, -139.07358)
+rotation = -0.9250245
+shape = SubResource("RectangleShape2D_baranda")
+
+[node name="Jugador" parent="." unique_id=962827905 instance=ExtResource("3_jugador")]
+y_sort_enabled = true
+position = Vector2(386, 588)
+scale = Vector2(0.6, 0.6)
+ESCALA_FONDO = 0.3
+
+[node name="PuertaCocina" type="Area2D" parent="." unique_id=693929131]
+position = Vector2(220, 600)
+script = ExtResource("4_puerta")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PuertaCocina" unique_id=375419280]
+position = Vector2(93.5, -96)
+shape = SubResource("RectangleShape2D_escaleras")
+
+[node name="PuertaCuarto" type="Area2D" parent="." unique_id=1929884055]
+position = Vector2(542, 410)
+script = ExtResource("6_puerta_interactiva")
+escena_destino = "res://escenas/CuartoProta.tscn"
+punto_spawn_destino = "desde_pasillo"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PuertaCuarto" unique_id=377979673]
+position = Vector2(-80, -83.5)
+shape = SubResource("RectangleShape2D_puerta_cuarto")
+
+[node name="Contorno" type="Node2D" parent="PuertaCuarto" unique_id=1305088620]
+position = Vector2(-76, -213)
+
+[node name="Marco" type="Line2D" parent="PuertaCuarto/Contorno" unique_id=1949016636]
+position = Vector2(-7, 4)
+points = PackedVector2Array(-41, 129, -40, -32, 47, -30, 45, 130, -41, 129)
+width = 0.5
+default_color = Color(0.9025, 0.9025, 0.95, 0.7764706)
+
+[node name="ModulacionNoche" type="CanvasModulate" parent="." unique_id=2110171979]
+color = Color(0.48, 0.48, 0.62, 1)
+
+[node name="LuzLamparaTecho" type="PointLight2D" parent="." unique_id=1398415169]
+position = Vector2(415, 160)
+color = Color(1, 0.85, 0.55, 1)
+energy = 1.3
+texture = ExtResource("5_luz")
+texture_scale = 6.0
+metadata/_edit_lock_ = true
+
+[node name="LuzLamparaMesa" type="PointLight2D" parent="." unique_id=320387292]
+position = Vector2(100, 470)
+color = Color(1, 0.82, 0.45, 1)
+energy = 1.2
+texture = ExtResource("5_luz")
+texture_scale = 3.5
+metadata/_edit_lock_ = true
+
+[node name="LuzVentana" type="PointLight2D" parent="." unique_id=236726936]
+position = Vector2(145, 230)
+color = Color(0.85, 0.91, 1, 1)
+energy = 1.1
+texture = ExtResource("5_luz")
+texture_scale = 3.0
+metadata/_edit_lock_ = true
+
+[node name="PuertaMama" type="Area2D" parent="." unique_id=1688225255]
+position = Vector2(990, 560)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PuertaMama" unique_id=1305383697]
+shape = SubResource("RectangleShape2D_x4nws")
+
+[node name="Contorno" type="Node2D" parent="PuertaMama" unique_id=477321914]
+visible = false
+
+[node name="Marco" type="Line2D" parent="PuertaMama/Contorno" unique_id=829392468]
+points = PackedVector2Array(-62, -43, -62, -492, 82, -548, 82, 27)
+closed = true
+width = 1.5
+default_color = Color(0.95, 0.95, 1, 0.85)
+
+[node name="PuertaHermana" type="Area2D" parent="." unique_id=115040588]
+position = Vector2(745, 445)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PuertaHermana" unique_id=1245297334]
+shape = SubResource("RectangleShape2D_1p0l0")
+
+[node name="Contorno" type="Node2D" parent="PuertaHermana" unique_id=405887133]
+visible = false
+
+[node name="Marco" type="Line2D" parent="PuertaHermana/Contorno" unique_id=1495373856]
+points = PackedVector2Array(-34, -33, -34, -297, 36, -321, 36, 1)
+closed = true
+width = 1.5
+default_color = Color(0.95, 0.95, 1, 0.85)
+
+[connection signal="body_entered" from="PuertaCocina" to="PuertaCocina" method="_on_body_entered"]
+[connection signal="body_entered" from="PuertaCuarto" to="PuertaCuarto" method="_on_body_entered"]
+[connection signal="body_exited" from="PuertaCuarto" to="PuertaCuarto" method="_on_body_exited"]

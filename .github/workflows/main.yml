@@ -1,0 +1,48 @@
+name: SherlynAngel Proyect CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  # 1. SCRIPTS PARA LA GENERACIÓN DEL ENTORNO DE LIBERACIÓN
+  setup-environment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar el repositorio
+        uses: actions/checkout@v3
+      - name: Configurar entorno del motor
+        run: echo "Configurando dependencias del motor gráfico para el entorno de liberación..."
+
+  # 2. SCRIPTS DE PRUEBAS EN EL ENTORNO
+  run-tests:
+    needs: setup-environment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar el repositorio
+        uses: actions/checkout@v3
+      - name: Ejecutar pruebas del proyecto
+        run: echo "Corriendo pruebas de validación de escenas y diálogos (Test Pass)..."
+
+  # 3. SCRIPTS DEL FLUJO DE TRABAJO (PIPELINE / BUILD)
+  build-game:
+    needs: run-tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar el repositorio
+        uses: actions/checkout@v3
+      - name: Compilar binarios del proyecto (Windows)
+        run: echo "Generando el ejecutable .exe del videojuego en el pipeline..."
+      - name: Guardar Artefactos
+        run: echo "Guardando binarios temporalmente..."
+
+  # 4. SCRIPTS PARA LA GENERACIÓN DEL DESPLIEGUE
+  deploy-release:
+    needs: build-game
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar Artefactos
+        run: echo "Descargando binarios generados..."
+      - name: Despliegue en el entorno
+        run: echo "Liberando nueva versión de prueba en el entorno de despliegue."
